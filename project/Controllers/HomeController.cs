@@ -23,14 +23,31 @@ namespace project.Controllers
             return View();
         }
 
+        private static List<Student> _students = new List<Student>
+    {
+        new Student { Id = 1, FirstName = "Alice", LastName = "ne", GradeLevel = 12, MathScore = 95, EnglishScore = 88 },
+        new Student { Id = 2, FirstName = "Bob", LastName = "ne", GradeLevel = 12, MathScore = 82, EnglishScore = 91 }
+    };
+        [HttpGet]
         public IActionResult StudentTab()
         {
-            var students = new List<Student>
+            return View(_students);
+        }
+
+        [HttpPost]
+        public IActionResult StudentTab(string firstName, string lastName, int gradeLevel, double mathScore, double englishScore)
         {
-            new Student { Id = 1, Name = "Alice", MathScore = 95, EnglishScore = 88 },
-            new Student { Id = 2, Name = "Bob", MathScore = 82, EnglishScore = 91 }
-        };
-            return View(students);
+            int newId = _students.Count > 0 ? _students.Max(s => s.Id) + 1 : 1;
+            _students.Add(new Student
+            {
+                Id = newId,
+                FirstName = firstName,
+                LastName = lastName,
+                GradeLevel = gradeLevel,
+                MathScore = mathScore,
+                EnglishScore = englishScore
+            });
+            return View(_students);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

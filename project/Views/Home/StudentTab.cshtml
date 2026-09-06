@@ -3,13 +3,40 @@
 @{
     ViewData["Title"] = "Student Tab";
 }
+
 <h1>@ViewData["Title"]</h1>
+
+<form asp-action="StudentTab" method="post" class="mb-4">
+    <div class="mb-2">
+        <label>First Name</label>
+        <input type="text" name="firstName" class="form-control" required />
+    </div>
+    <div class="mb-2">
+        <label>Last Name</label>
+        <input type="text" name="lastName" class="form-control" required />
+    </div>
+    <div class="mb-2">
+        <label>Grade Level: <span id="gradeValue">6</span></label>
+        <input type="range" name="gradeLevel" min="1" max="12" value="6" class="form-range" oninput="gradeValue.innerText = this.value" />
+    </div>
+    <div class="mb-2">
+        <label>Math Score</label>
+        <input type="number" name="mathScore" class="form-control" step="0.01" required />
+    </div>
+    <div class="mb-2">
+        <label>English Score</label>
+        <input type="number" name="englishScore" class="form-control" step="0.01" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Student</button>
+</form>
 
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Grade Level</th>
             <th>Math Score</th>
             <th>English Score</th>
         </tr>
@@ -19,10 +46,17 @@
         {
             <tr>
                 <td>@student.Id</td>
-                <td>@student.Name</td>
+                <td>@student.FirstName</td>
+                <td>@student.LastName</td>
+                <td>@student.GradeLevel</td>
                 <td>@student.MathScore</td>
                 <td>@student.EnglishScore</td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    // For live grade level display
+    var gradeValue = document.getElementById('gradeValue');
+</script>
